@@ -61,8 +61,7 @@ function init(){
    document.getElementById("puzzle").innerHTML = 
    drawPuzzle(puzzle1Hint,puzzle1Rating,puzzle1);
    
-}
-
+   
 var buttons = document.getElementsByClassName("puzzles");
 
 for(var i = 0; i < buttons.length; i++){
@@ -72,6 +71,14 @@ for(var i = 0; i < buttons.length; i++){
    
    }
 
+   setupPuzzle();
+
+
+}
+
+
+var puzzleCells;
+var cellBackground;
 
 function swapPuzzle(e){
    var puzzleID = this.id;
@@ -91,10 +98,37 @@ function swapPuzzle(e){
                break;
    
    }
+
+   setupPuzzle();
 }
 
 
 
+function setupPuzzle(){
+   puzzleCells = document.querySelectorAll('table#hanjieGrid td');
+
+   for(var i = 0; i < puzzleCells.length; i++){
+      puzzleCells[i].style.backgroundColor = 'rgb(233, 207, 29)';
+      puzzleCells[i].onmousedown = setBackground;
+      puzzleCells[i].addEventListener('mouseenter', extendBackground);
+   }
+
+}
+
+function setBackground(e){
+   cellBackground = 'rgb(101, 101, 101)';
+   
+
+   for(var i = 0; i < puzzleCells.length; i++){
+      puzzleCells[i].addEventListener('mouseenter', extendBackground);
+   }
+
+   this.style.backgroundColor = cellBackground;
+}
+
+function extendBackground(e){
+   this.style.backgroundColor = cellBackground;
+}
 
 
          
